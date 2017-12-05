@@ -40,6 +40,7 @@ public class HttpManager {
 
     /**
      *同步请求
+     * @param url 链接地址
      */
     public Response syncRequest(String url)
     {
@@ -81,7 +82,9 @@ public class HttpManager {
                     fileOutputStream.write(buffer,0,len);
                     fileOutputStream.flush();
                 }
-                callBack.success(file);
+                if (callBack!=null) {
+                    callBack.success(file);
+                }
             }
         });
     }
