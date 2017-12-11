@@ -1,6 +1,7 @@
 package com.example.filedownload.mythreads;
 
 /**
+ *
  * @author libohan
  *         邮箱:76681287@qq.com
  *         create on 2017/12/5.
@@ -30,7 +31,7 @@ public class PauseThread  extends Thread{
     {
         flag=true;
     }
-    public void onPause()
+    private void onPause()
     {
         synchronized (object)
         {

@@ -47,7 +47,7 @@ public class FileStorageManager {
         File file=new File(parent,fileNanme);
         if (!file.exists())
         {
-            Log.e("LBH","进来了");
+            Log.e("LBH","进来了 ");
             try {
                 file.createNewFile();
             } catch (IOException e) {
