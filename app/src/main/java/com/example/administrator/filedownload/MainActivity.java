@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initView();
         checkPersiossion();
-        File file = FileStorageManager.getInstance().getFileByName("http://www.imooc.com");
+        File file = FileStorageManager.getInstance().getFileByName("http://www.hellokitty.com");
         Logger.debug("LBH", "file.path=" + file.getAbsolutePath());
         HttpManager.getInstance().asyncRequest("https://img.alicdn.com/tfs/TB1TE6vdaagSKJjy0FhXXcrbFXa-966-644.jpg_490x490q100.jpg_.webp", new DownLoadCallBack() {
             @Override
