@@ -14,13 +14,15 @@
         <activity android:name="com.example.administrator.TestThreadActivity">
 
         </activity>
-        <activity android:name="com.example.MyTestActivity">
+        <activity android:name="com.example.administrator.MyTestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+        <service android:name="com.example.administrator.MyJpushService"></service>
     </application>
 
 </manifest>

@@ -24,7 +24,7 @@ public class HttpManager {
     private Context mContext;
     private OkHttpClient mClient;
     private int NETWORK_CODE=1;
-
+    public static int NETWORK_ERROR_CODE=250;
     public static HttpManager getInstance()
     {
         return manager;
@@ -87,5 +87,19 @@ public class HttpManager {
                 }
             }
         });
+    }
+    /**
+     *同步请求
+     * @param url 链接地址
+     */
+    public Response syncRequestByRanage(String url,long start,long end)
+    {
+        Request request=new Request.Builder().url(url).addHeader("Range","bytes="+start+"-"+end).build();
+        try {
+            return mClient.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
