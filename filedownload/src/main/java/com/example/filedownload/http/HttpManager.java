@@ -3,6 +3,7 @@ package com.example.filedownload.http;
 import android.content.Context;
 
 import com.example.filedownload.file.FileStorageManager;
+import com.example.filedownload.mythreads.PauseThread;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -23,8 +24,8 @@ public class HttpManager {
     private static final HttpManager manager=new HttpManager();
     private Context mContext;
     private OkHttpClient mClient;
-    private int NETWORK_CODE=1;
-    public static int NETWORK_ERROR_CODE=250;
+    public static int NETWORK_ERROR_CODE=1;
+    public static int CONTENT_LENGTH_ERROR=2;
     public static HttpManager getInstance()
     {
         return manager;
@@ -52,6 +53,20 @@ public class HttpManager {
         }
         return null;
     }
+    /**
+     *同步请求
+     * @param url 链接地址
+     */
+    public Response syncRequestByRanage(String url,long start,long end)
+    {
+        Request request=new Request.Builder().url(url).addHeader("Range","bytes="+start+"-"+end).build();
+        try {
+            return mClient.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     /**
      * 异步的请求
@@ -70,7 +85,7 @@ public class HttpManager {
             public void onResponse(Response response) throws IOException {
                if (!response.isSuccessful()&&callBack!=null)
                {
-                   callBack.failed(NETWORK_CODE,"请求失败");
+                   callBack.failed(NETWORK_ERROR_CODE,"请求失败");
                }
                 File file= FileStorageManager.getInstance().getFileByName(url);
                byte[]buffer=new byte[1024*500];
@@ -87,19 +102,11 @@ public class HttpManager {
                 }
             }
         });
+
     }
-    /**
-     *同步请求
-     * @param url 链接地址
-     */
-    public Response syncRequestByRanage(String url,long start,long end)
-    {
-        Request request=new Request.Builder().url(url).addHeader("Range","bytes="+start+"-"+end).build();
-        try {
-            return mClient.newCall(request).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public void asyncRequest(final String url, Callback callback) {
+        Request request = new Request.Builder().url(url).build();
+        mClient.newCall(request).enqueue(callback);
     }
+
 }

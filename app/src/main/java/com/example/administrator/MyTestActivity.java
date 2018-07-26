@@ -21,10 +21,11 @@ public class MyTestActivity extends AppCompatActivity implements View.OnClickLis
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            Log.e("LBH", "lbhlc");
+
 
             if (value < 4) {
                 handler.postDelayed(this, 1000);
+                Log.e("LBH", "lbhlc");
                 value++;
             } else {
                 handler.removeCallbacks(this);
@@ -51,8 +52,15 @@ public class MyTestActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_test);
         initView();
-        intent=new Intent(MyTestActivity.this, MyJpushService.class);
-        //  handler.postDelayed(runnable,1000);
+       // intent=new Intent(MyTestActivity.this, MyJpushService.class);
+       // handler.postDelayed(runnable,1000);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        value=0;
+        handler.postDelayed(runnable, 1000);
     }
 
     @Override

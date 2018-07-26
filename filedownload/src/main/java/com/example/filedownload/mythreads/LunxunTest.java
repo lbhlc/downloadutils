@@ -13,26 +13,8 @@ import java.util.logging.Handler;
 
 public class LunxunTest {
 
-    private static android.os.Handler handler=new android.os.Handler()
-    {
-        @Override
-        public void handleMessage(Message msg) {
-          switch (msg.what)
-          {
-              case 1:
-                  break;
-              case 2:
-                  break;
-              case 3:
-                  break;
-              case 4:
-                  break;
-              default:
-                  break;
-          }
-        }
-    };
-    private static int value=0;
+    private static android.os.Handler handler=new android.os.Handler();
+   static int value=0;
     private static Runnable runnable=new Runnable() {
         @Override
         public void run() {
